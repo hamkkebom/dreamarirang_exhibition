@@ -1,0 +1,6 @@
+# 헐버트 전시회 사이트 크롤링 규칙
+User-agent: *
+Allow: /
+
+# 사이트맵 위치
+Sitemap: https://dreamarirang.com/sitemap.xml
