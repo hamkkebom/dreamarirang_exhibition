@@ -15,6 +15,9 @@
   <meta name="theme-color" content="#F9F8F2">
   <meta name="author" content="함께봄 주식회사">
   <link rel="canonical" href="https://dreamarirang.com/">
+  <link rel="alternate" hreflang="ko" href="https://dreamarirang.com/">
+  <link rel="alternate" hreflang="en" href="https://dreamarirang.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://dreamarirang.com/">
 
   <!-- Google Search Console: DNS TXT 방식으로 인증 완료 -->
   <!-- Naver Search Advisor 소유권 인증 -->
@@ -128,9 +131,30 @@
        Hero 섹션
     ============================ */
     .hero {
+      position: relative;
       padding-top: 60px;
       padding-bottom: 32px;
       text-align: center;
+    }
+
+    .lang-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--color-accent);
+      text-decoration: none;
+      padding: 6px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: 100px;
+      background-color: var(--color-bg-white);
+    }
+
+    .lang-switch:hover {
+      border-color: var(--color-accent);
     }
 
     .badge {
@@ -617,6 +641,7 @@
 
     <!-- ===================== HERO 섹션 ===================== -->
     <section class="hero">
+      <a class="lang-switch" href="/en/" lang="en" hreflang="en">English</a>
       <div class="container">
         <span class="badge">전시 종료</span>
 
