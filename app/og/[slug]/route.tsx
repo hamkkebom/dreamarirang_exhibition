@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { getPublishedPost } from "@/lib/posts";
 import { SITE_NAME } from "@/lib/site";
+import { safeSlug } from "@/lib/format";
 
 const size = { width: 1200, height: 630 };
 export const dynamic = "force-dynamic";
@@ -21,7 +22,7 @@ async function loadFont(text: string): Promise<ArrayBuffer | null> {
 
 export async function GET(_req: Request, { params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = await getPublishedPost(decodeURIComponent(slug));
+  const post = await getPublishedPost(safeSlug(slug));
   if (!post) return new Response("Not found", { status: 404 });
   const title = post.title;
   const category = post.category || "아리랑 칼럼";
@@ -50,8 +51,8 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
     ),
     {
       ...size,
-      // 제목을 고치면 하루 안에 새 이미지가 나가도록 영구 캐시를 쓰지 않는다
-      headers: { "Cache-Control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400" },
+      // 제목을 고치거나 발행을 취소하면 5분 안에 반영되도록 짧게 캐시한다
+      headers: { "Cache-Control": "public, max-age=300, s-maxage=300" },
       fonts: font ? [{ name: "Noto Serif KR", data: font, weight: 700, style: "normal" }] : [] },
   );
 }

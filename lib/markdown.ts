@@ -35,6 +35,8 @@ function isHeading(n: RootContent | ElementContent, tag: string): n is Element {
 function transform(collect: { toc: TocItem[]; images: ImageInfo[]; warnings: string[] }) {
   return (tree: Root) => {
     const slugger = new GithubSlugger();
+    // 글 화면이 이미 쓰는 id는 미리 예약해 본문 제목과 겹치지 않게 한다
+    for (const reserved of ["toc-title", "faq-title"]) slugger.slug(reserved);
 
     const walk = (node: Root | Element) => {
       for (const child of node.children) {

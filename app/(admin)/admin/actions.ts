@@ -8,8 +8,8 @@ import {
   UnauthorizedError,
   passwordMatches,
   clientIp,
-  tooManyAttempts,
-  recordAttempt,
+  beginAttempt,
+  markAttemptSucceeded,
   makeSessionValue,
   SESSION_COOKIE,
   SESSION_MAX_AGE,
@@ -31,12 +31,12 @@ import { authorByName, AUTHORS } from "@/lib/site";
 
 export async function login(_: { error?: string } | undefined, form: FormData): Promise<{ error?: string }> {
   const ip = await clientIp();
-  if (await tooManyAttempts(ip)) {
+  const attempt = await beginAttempt(ip);
+  if (attempt === null) {
     return { error: `로그인 실패가 ${LIMIT_TEXT}을 넘었습니다. 잠시 뒤에 다시 시도해 주세요.` };
   }
-  const ok = passwordMatches(String(form.get("password") ?? ""));
-  await recordAttempt(ip, ok);
-  if (!ok) return { error: "비밀번호가 맞지 않습니다." };
+  if (!passwordMatches(String(form.get("password") ?? ""))) return { error: "비밀번호가 맞지 않습니다." };
+  await markAttemptSucceeded(attempt);
   const jar = await cookies();
   jar.set(SESSION_COOKIE, makeSessionValue(), {
     httpOnly: true,

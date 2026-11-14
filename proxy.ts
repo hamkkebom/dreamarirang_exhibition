@@ -5,6 +5,13 @@ import { SESSION_COOKIE, verifySessionValue } from "@/lib/session";
 
 export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
+  // 깨진 퍼센트 인코딩 주소는 Next가 500을 내므로 여기서 404로 돌려보낸다
+  try {
+    decodeURIComponent(pathname);
+  } catch {
+    return new NextResponse("Not found", { status: 404 });
+  }
+  if (!pathname.startsWith("/admin")) return NextResponse.next();
   if (pathname.startsWith("/admin/login")) return NextResponse.next();
   if (!verifySessionValue(req.cookies.get(SESSION_COOKIE)?.value)) {
     const url = req.nextUrl.clone();
@@ -15,4 +22,4 @@ export function proxy(req: NextRequest) {
   return NextResponse.next();
 }
 
-export const config = { matcher: ["/admin", "/admin/:path*"] };
+export const config = { matcher: ["/admin", "/admin/:path*", "/blog/:path*", "/og/:path*", "/authors/:path*"] };

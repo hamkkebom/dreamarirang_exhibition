@@ -4,7 +4,7 @@ import { cache } from "react";
 import PageTop, { Breadcrumb, SiteFooter } from "@/components/PageTop";
 import { getPublishedPost, getPublishedPosts } from "@/lib/posts";
 import { renderMarkdown } from "@/lib/markdown";
-import { koDate } from "@/lib/format";
+import { koDate, safeSlug } from "@/lib/format";
 import { JsonLd, articleLd, breadcrumbLd, faqLd, postUrl, authorUrl, ogImagePath } from "@/lib/jsonld";
 import { SITE_URL, SITE_NAME, abs, authorByName } from "@/lib/site";
 
@@ -19,7 +19,7 @@ export async function generateStaticParams() {
   }
 }
 
-const load = cache(async (slug: string) => getPublishedPost(decodeURIComponent(slug)));
+const load = cache(async (slug: string) => getPublishedPost(safeSlug(slug)));
 
 export async function generateMetadata({ params }: PageProps<"/blog/[slug]">): Promise<Metadata> {
   const { slug } = await params;
