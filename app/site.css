@@ -1,0 +1,910 @@
+@import "tailwindcss";
+
+/* 아래 규칙은 모두 base 계층에 둔다. Tailwind 유틸리티(관리자 화면)가 이 규칙보다 우선한다. */
+@layer base {
+
+/* ===== 예전 정적 사이트의 스타일 (index.html <style>에서 그대로 옮김) ===== */
+/* ============================
+   기본 리셋 및 변수
+============================ */
+:root {
+  --color-bg: #F9F8F2;
+  --color-bg-white: #FFFFFF;
+  --color-text: #1a1a1a;
+  --color-text-secondary: #6b6b6b;
+  --color-text-tertiary: #999999;
+  --color-primary: #1B1F3B;
+  --color-accent: #8B4513;
+  --color-accent-light: #A0522D;
+  --color-border: #e8e4df;
+  --color-border-light: #f0ece7;
+  --color-badge-bg: #8B4513;
+  --color-badge-text: #FFFFFF;
+  --color-disabled: #c8c4bf;
+
+  --font-serif: 'Noto Serif KR', Georgia, serif;
+  --font-sans: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --max-width: 640px;
+  --spacing-section: 48px;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================
+   레이아웃
+============================ */
+.site-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: var(--spacing-section) 0;
+}
+
+/* ============================
+   구분선
+============================ */
+.divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* ============================
+   Hero 섹션
+============================ */
+.hero {
+  position: relative;
+  padding-top: 60px;
+  padding-bottom: 32px;
+  text-align: center;
+}
+
+.lang-switch {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-accent);
+  text-decoration: none;
+  padding: 6px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 100px;
+  background-color: var(--color-bg-white);
+}
+
+.lang-switch:hover {
+  border-color: var(--color-accent);
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-badge-text);
+  background-color: var(--color-badge-bg);
+  padding: 7px 20px;
+  border-radius: 100px;
+  margin-bottom: 32px;
+}
+
+.hero-eyebrow {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-accent);
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(28px, 5vw, 40px);
+  line-height: 1.4;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+  word-break: keep-all;
+}
+
+.hero-subtitle {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(16px, 3vw, 20px);
+  color: var(--color-accent);
+  margin-bottom: 20px;
+  letter-spacing: 0.02em;
+}
+
+.hero-description {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  margin-bottom: 32px;
+  line-height: 1.8;
+}
+
+/* 전시 포스터 이미지 */
+.hero-image {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 32px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 전시 정보 요약 */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  text-align: left;
+  border-top: 1px solid var(--color-border);
+  padding-top: 32px;
+}
+
+.info-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.info-label {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);
+  min-width: 48px;
+  text-transform: uppercase;
+}
+
+.info-value {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--color-primary);
+  line-height: 1.6;
+}
+
+.info-value small {
+  display: block;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
+
+/* ============================
+   Hero 인스타 안내
+============================ */
+.hero .instagram-notice {
+  margin-top: 28px;
+  justify-content: center;
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+}
+
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(22px, 4vw, 28px);
+  color: var(--color-primary);
+  margin-bottom: 24px;
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+.about-text {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 2;
+  margin-bottom: 32px;
+}
+
+.instagram-notice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background-color: var(--color-bg);
+  border-radius: 8px;
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.instagram-notice svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent);
+}
+
+
+.instagram-notice .instagram-arrow {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+
+/* ============================
+   About / Content 섹션
+============================ */
+.about-section {
+  background-color: var(--color-bg-white);
+}
+
+.content-block {
+  margin-bottom: 28px;
+}
+
+.content-block:last-child {
+  margin-bottom: 0;
+}
+
+.content-block h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.content-block p,
+.content-block ul {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 2;
+  word-break: keep-all;
+}
+
+.content-block ul {
+  list-style: none;
+  padding: 0;
+}
+
+.content-block ul li {
+  position: relative;
+  padding-left: 16px;
+}
+
+.content-block ul li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+/* 공모전 하이라이트 카드 */
+.contest-highlight {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.contest-highlight .contest-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.contest-highlight .contest-prize {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 12px;
+}
+
+.contest-highlight p {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+/* ============================
+   Links 섹션
+============================ */
+.links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+.link-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.link-card-title {
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.link-card-url {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+}
+
+.link-card-arrow {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+
+/* 준비중 상태 */
+.link-card--disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}
+
+.link-card--disabled:hover {
+  border-color: var(--color-border);
+  box-shadow: none;
+}
+
+.coming-soon-badge {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-tertiary);
+  background-color: var(--color-bg);
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1px solid var(--color-border);
+}
+
+/* ============================
+   Contact 섹션
+============================ */
+.contact {
+  background-color: var(--color-bg);
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+
+.contact-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-icon--kakao {
+  background-color: #FEE500;
+}
+
+.contact-icon--instagram {
+  background: linear-gradient(135deg, #833AB4, #E1306C, #F77737);
+}
+
+.contact-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.contact-icon--kakao svg {
+  color: #3C1E1E;
+}
+
+.contact-icon--instagram svg {
+  color: #FFFFFF;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-name {
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.contact-handle {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+}
+
+/* ============================
+   Footer
+============================ */
+footer {
+  padding: 40px 0;
+  text-align: center;
+}
+
+footer p {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.02em;
+}
+
+/* ============================
+   반응형
+============================ */
+/* 호버 가능 기기 전용 (데스크탑) */
+@media (hover: hover) {
+  .instagram-notice:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-border-light);
+  }
+
+  .instagram-notice:hover .instagram-arrow {
+    transform: translateX(3px);
+    color: var(--color-accent);
+  }
+
+  .link-card:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-border-light);
+  }
+
+  .link-card:hover .link-card-arrow {
+    transform: translateX(3px);
+    color: var(--color-accent);
+  }
+
+  .contact-card:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-border-light);
+  }
+}
+
+/* 터치 기기 탭 피드백 */
+@media (hover: none) {
+
+  .instagram-notice:active,
+  .link-card:active,
+  .contact-card:active {
+    opacity: 0.85;
+    transform: scale(0.98);
+  }
+}
+
+/* 데스크탑 확장 */
+@media (min-width: 768px) {
+  :root {
+    --spacing-section: 80px;
+  }
+
+  .hero {
+    padding-top: 120px;
+    padding-bottom: 48px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-description {
+    font-size: 15px;
+  }
+
+  .mobile-br {
+    display: none;
+  }
+}
+
+/* ===== 칼럼(블로그) — 첫 화면과 같은 색·글꼴·폭을 쓴다 ===== */
+.page-top {
+  padding: 20px 0 0;
+}
+
+.page-top .site-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.site-home {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+.breadcrumb ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  margin-bottom: 20px;
+}
+
+.breadcrumb li + li::before {
+  content: "›";
+  margin-right: 6px;
+}
+
+.breadcrumb a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--color-accent);
+}
+
+.page-head {
+  padding-top: 40px;
+  padding-bottom: 24px;
+}
+
+.page-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(26px, 5vw, 34px);
+  line-height: 1.4;
+  color: var(--color-primary);
+  margin-bottom: 14px;
+  word-break: keep-all;
+}
+
+.page-lead {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.post-meta {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+}
+
+.post-meta a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.post-category {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+  margin-bottom: 10px;
+}
+
+.toc {
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 8px 0 32px;
+}
+
+.toc h2 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+  margin-bottom: 8px;
+}
+
+.toc ol {
+  list-style: none;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.toc li.toc-3 {
+  padding-left: 16px;
+  font-size: 14px;
+}
+
+.toc a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.toc a:hover {
+  color: var(--color-accent);
+}
+
+.prose {
+  font-size: 16px;
+  color: var(--color-text);
+  line-height: 1.95;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.prose section {
+  padding: 0;
+}
+
+.prose > * + *,
+.prose section > * + * {
+  margin-top: 1.1em;
+}
+
+.prose section + section,
+.prose > section {
+  margin-top: 2.2em;
+}
+
+.prose h2 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(20px, 3.6vw, 24px);
+  line-height: 1.5;
+  color: var(--color-primary);
+  scroll-margin-top: 24px;
+}
+
+.prose h3 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--color-primary);
+  margin-top: 1.6em;
+  scroll-margin-top: 24px;
+}
+
+.prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.3em;
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose li + li {
+  margin-top: 0.3em;
+}
+
+.prose blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding: 4px 0 4px 16px;
+  color: var(--color-text-secondary);
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.prose code {
+  font-size: 0.9em;
+  background-color: var(--color-border-light);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.prose pre {
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  display: block;
+  overflow-x: auto;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid var(--color-border);
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+.faq {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--color-border);
+}
+
+.faq h2 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(20px, 3.6vw, 24px);
+  color: var(--color-primary);
+  margin-bottom: 16px;
+}
+
+.faq-item + .faq-item {
+  margin-top: 20px;
+}
+
+.faq-item h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+
+.faq-item p {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 1.9;
+  white-space: pre-line;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.post-card {
+  display: block;
+  padding: 22px 24px;
+  background-color: var(--color-bg-white);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--color-text);
+  transition: border-color 0.2s ease;
+}
+
+.post-card h2 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+  word-break: keep-all;
+}
+
+.post-card p {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+.post-card time {
+  display: block;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+}
+
+@media (hover: hover) {
+  .post-card:hover {
+    border-color: var(--color-accent);
+  }
+}
+
+.empty-note {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+}
+
+}
