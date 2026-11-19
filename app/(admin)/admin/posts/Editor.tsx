@@ -281,7 +281,8 @@ export default function Editor({ initial, authors }: { initial: Initial; authors
           <ul className="space-y-1 text-xs text-[#6b6b6b]">
             <li><code>## 소제목</code> · <code>### 작은 소제목</code> (목차가 자동으로 생깁니다)</li>
             <li><code>**굵게**</code> · <code>[링크](https://주소)</code></li>
-            <li><code>![대체 글](이미지주소 &quot;800x450&quot;)</code> — 대체 글과 가로x세로 크기를 꼭 적습니다</li>
+            <li><code>![대체 글](이미지주소 &quot;800x450&quot;)</code> — 대체 글과 가로x세로 크기를 꼭 적습니다. 바로 다음 줄에 <code>*설명*</code>을 쓰면 사진 설명이 됩니다</li>
+            <li>굵게 표시 안의 글이 괄호·따옴표로 끝나고 바로 뒤에 글자가 붙으면 굵게가 풀립니다. <code>**헐버트**(1863~1949)</code>처럼 괄호를 굵게 밖으로 뺍니다</li>
             <li>중요한 내용은 이미지가 아니라 글자로 적습니다.</li>
             <li>글 제목이 화면의 큰 제목(h1)이 되므로 본문에는 <code>#</code> 한 개짜리 제목을 쓰지 않습니다.</li>
           </ul>

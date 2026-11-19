@@ -778,9 +778,22 @@ footer p {
 }
 
 .prose img {
+  display: block;
   max-width: 100%;
   height: auto;
+  margin: 0 auto;
   border-radius: 8px;
+}
+
+/* 사진 바로 아래 줄에 *기울임*으로 쓴 글은 사진 설명으로 보여 준다 */
+.prose p:has(> img) > em {
+  display: block;
+  margin-top: 0.6em;
+  font-size: 13px;
+  font-style: normal;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  text-align: center;
 }
 
 .prose code {
